@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-migrations
+spec:
+  template:
+    spec:
+      containers:
+      - name: django
+        image: heliostrome/app:v1
+        command: ['python', 'manage.py', 'migrate']
+        envFrom:
+        - configMapRef:
+             name: postgres-cm
+        env:
+        - name: POSTGRES_HOST
+          value: "postgres-svc"
+        - name: POSTGRES_PORT
+          value: "5432"
+      restartPolicy: Never
+  backoffLimit: 5
