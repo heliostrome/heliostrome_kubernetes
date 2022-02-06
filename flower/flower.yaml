@@ -3,24 +3,30 @@ kind: Deployment
 metadata:
   name: flower
   labels:
-    deployment: flower
+    app: flower
 spec:
   replicas: 1
   selector:
     matchLabels:
-      pod: flower
+      app: flower
   template:
     metadata:
       labels:
-        pod: flower
+        app: flower
     spec:
       containers:
       - name: flower
-        image: heliostrome/app/v1.0
-        command: ['celery','--app=core', 'flower', '--loglevel=INFO']
+        image: heliostrome/app:v1
+        imagePullPolicy: Always 
+        command: ['celery','--app=core', 'flower', '--loglevel=INFO', '--address=0.0.0.0']
         ports:
         - containerPort: 5555
+        envFrom:
+        - configMapRef:
+            name: postgres-cm
         env:
+        - name: POSTGRES_HOST
+          value: "postgres-svc"
         - name: REDIS_HOST
           value: "redis-svc"
         - name: REDIS_PORT
