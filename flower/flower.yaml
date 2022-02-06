@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flower
+  labels:
+    deployment: flower
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: flower
+  template:
+    metadata:
+      labels:
+        pod: flower
+    spec:
+      containers:
+      - name: flower
+        image: heliostrome/app/v1.0
+        command: ['celery','--app=core', 'flower', '--loglevel=INFO']
+        ports:
+        - containerPort: 5555
+        env:
+        - name: REDIS_HOST
+          value: "redis-svc"
+        - name: REDIS_PORT
+          value: "6379"
+        resources:
+          limits:
+            cpu: 100m
