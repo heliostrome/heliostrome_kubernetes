@@ -1,6 +1,6 @@
 # heliostrome_kubernetes
 
-#DONE 
+## DONE 
 * django migration
 * django deployment
 * celery workers 
@@ -8,6 +8,6 @@
 * flower
 * postgres
 
-#TODO
+## TODO
 * redis clustered
 * react frontend???
