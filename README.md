@@ -9,5 +9,6 @@
 * postgres
 
 ## TODO
+* grafana + prometheus
 * redis clustered
 * react frontend???
