@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  labels:
+    app: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django-web
+        image: heliostrome/app:v1
+        command: ['celery', '--app=core', 'worker', '--loglevel=INFO' ]
+        imagePullPolicy: Always 
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: postgres-cm
+        env:
+        - name: POSTGRES_HOST
+          value: "postgres-svc"
+        - name: REDIS_HOST
+          value: "redis-svc"
+        - name: REDIS_PORT
+          value: "6379"
