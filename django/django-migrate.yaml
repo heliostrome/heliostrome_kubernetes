@@ -8,6 +8,7 @@ spec:
       containers:
       - name: django
         image: heliostrome/app:v1
+        imagePullPolicy: Always 
         command: ['python', 'manage.py', 'migrate']
         envFrom:
         - configMapRef:
@@ -17,5 +18,9 @@ spec:
           value: "postgres-svc"
         - name: POSTGRES_PORT
           value: "5432"
+        - name: REDIS_HOST
+          value: "redis-svc"
+        - name: REDIS_PORT
+          value: "6379"
       restartPolicy: Never
   backoffLimit: 5
