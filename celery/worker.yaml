@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: django
+  name: worker
   labels:
-    app: django
+    app: worker
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: django
+      app: worker
   template:
     metadata:
       labels:
-        app: django
+        app: worker
     spec:
       containers:
-      - name: django-web
+      - name: celery-worker
         image: heliostrome/app:v1
         command: ['celery', '--app=core', 'worker', '--loglevel=INFO' ]
         imagePullPolicy: Always 

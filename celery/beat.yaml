@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: django
+  name: beat
   labels:
-    app: django
+    app: beat
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: django
+      app: beat
   template:
     metadata:
       labels:
-        app: django
+        app: beat
     spec:
       containers:
-      - name: django-web
+      - name: celery-beat
         image: heliostrome/app:v1
         command: ['celery', '--app=core', 'beat', '--loglevel=INFO' ]
         imagePullPolicy: Always 
