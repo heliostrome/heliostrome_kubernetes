@@ -7,8 +7,8 @@
 * celery  beat
 * flower
 * postgres
+* grafana + prometheus 
 
 ## TODO
-* grafana + prometheus
 * redis clustered
 * react frontend???
