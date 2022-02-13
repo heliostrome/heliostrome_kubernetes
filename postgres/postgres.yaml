@@ -19,8 +19,8 @@ spec:
       - name: postgres
         image: postgres:12
         envFrom:
-        - configMapRef:
-            name: postgres-cm
+        - secretRef:
+            name: postgres-secret
         ports:
         - containerPort: 5432
           name: postgresdb
